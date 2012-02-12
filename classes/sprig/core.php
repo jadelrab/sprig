@@ -239,7 +239,7 @@ abstract class Sprig_Core {
 				if ( ! $field->empty AND ! isset($field->rules['not_empty']))
 				{
 					// This field must not be empty
-					$field->rules['not_empty'] = NULL;
+					$field->rules['not_empty'] = array('not_empty');
 				}
 
 				if ($field->unique)
@@ -1545,7 +1545,7 @@ abstract class Sprig_Core {
 	 * Check the given data is valid. Only values that have editable fields
 	 * will be included and checked.
 	 *
-	 * @throws  Validate_Exception  when an error is found
+	 * @throws  Validation_Exception  when an error is found
 	 * @param   array  data to check, field => value
 	 * @return  array  filtered data
 	 */
@@ -1557,7 +1557,7 @@ abstract class Sprig_Core {
 			$data = $this->changed();
 		}
 
-		$data = Validate::factory($data);
+		$data = Validation::factory($data);
 
 		foreach ($this->_fields as $name => $field)
 		{
@@ -1568,11 +1568,6 @@ abstract class Sprig_Core {
 			}
 
 			$data->label($name, $field->label);
-
-			if ($field->filters)
-			{
-				$data->filters($name, $field->filters);
-			}
 
 			if ($field->rules)
 			{
@@ -1587,7 +1582,7 @@ abstract class Sprig_Core {
 
 		if ( ! $data->check())
 		{
-			throw new Validate_Exception($data);
+			throw new Validation_Exception($data);
 		}
 
 		return $data->as_array();
@@ -1596,11 +1591,11 @@ abstract class Sprig_Core {
 	/**
 	 * Callback for validating unique fields.
 	 *
-	 * @param   object  Validate array
+	 * @param   object  Validation array
 	 * @param   string  field name
 	 * @return  void
 	 */
-	public function _unique_field(Validate $array, $field)
+	public function _unique_field(Validation $array, $field)
 	{
 		if ($array[$field])
 		{

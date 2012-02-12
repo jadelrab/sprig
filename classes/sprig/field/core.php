@@ -73,11 +73,6 @@ abstract class Sprig_Field_Core {
 	public $in_db = TRUE;
 
 	/**
-	 * @var array {@link Validate} filters for this field.
-	 */
-	public $filters = array();
-
-	/**
 	 * @var array {@link Validate} rules for this field.
 	 */
 	public $rules = array();

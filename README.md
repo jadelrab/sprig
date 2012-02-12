@@ -92,9 +92,9 @@ If the model data does not satisfy the validation requirements, a `Validate_Exce
         // Create a new blog post
         $post->create();
     }
-    catch (Validate_Exception $e)
+    catch (Validation_Exception $e)
     {
-        // Get the errors using the Validate::errors() method
+        // Get the errors using the Validation::errors() method
         $errors = $e->array->errors('blog/post');
     }
 
@@ -106,7 +106,7 @@ Updating a record is done using the `update()` method:
         {
             $post->values($_POST)->update();
         }
-        catch (Validate_Exception $e)
+        catch (Validation_Exception $e)
         {
             $errors = $e->array->errors('blog/post');
         }
@@ -198,9 +198,6 @@ label
 
 description
 :  Description of the field. Default is `''` (an empty string).
-
-filters
-:  Validate filters for this field.
 
 rules
 :  Validate rules for this field.
